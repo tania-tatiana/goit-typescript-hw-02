@@ -1,41 +1,41 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { ClipLoader } from "react-spinners";
-import { fetchArticles } from "./Gallery-api";
+import { fetchArticles, Image, Photo } from "./Gallery-api";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
 
 function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const [topic, setTopic] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [topic, setTopic] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const openModal = (image) => {
+  const openModal = (image: Image): void => {
     setSelectedImage(image);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsModalOpen(false);
     setSelectedImage(null);
   };
 
-  const handleSearch = (newTopic) => {
+  const handleSearch = (newTopic: string): void => {
     setTopic(newTopic);
     setCurrentPage(1);
     setImages([]);
   };
 
-  const incrementPage = () => {
+  const incrementPage = (): void => {
     setCurrentPage(currentPage + 1);
   };
 
@@ -46,7 +46,8 @@ function App() {
       try {
         setIsError(false);
         setIsLoading(true);
-        const data = await fetchArticles(topic, currentPage);
+        const data: Photo = await fetchArticles(topic, currentPage);
+
         setImages((prevImages) => [...prevImages, ...data.images]);
         setTotalPages(data.totalPages);
       } catch {

@@ -1,8 +1,14 @@
 import styles from "./SearchBar.module.css";
 import toast, { Toaster } from "react-hot-toast";
 import { Field, Form, Formik } from "formik";
+import { Image } from "../../Gallery-api";
 
-export default function SearchBar({ onSearch, images }) {
+interface SearchBarProps {
+  images: Image[];
+  onSearch: (newTopic: string) => void;
+}
+
+export default function SearchBar({ onSearch, images }: SearchBarProps) {
   return (
     <>
       <Formik

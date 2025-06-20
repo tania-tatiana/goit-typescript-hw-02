@@ -1,7 +1,16 @@
+import { Image } from "../../Gallery-api";
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
 
-export default function ImageGallery({ images, onImageClick }) {
+interface ImageGalleryProps {
+  images: Image[];
+  onImageClick: (image: Image) => void;
+}
+
+export default function ImageGallery({
+  images,
+  onImageClick,
+}: ImageGalleryProps) {
   return (
     <>
       {images.length > 0 && (

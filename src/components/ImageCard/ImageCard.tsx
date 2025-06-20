@@ -1,6 +1,11 @@
+import { Image } from "../../Gallery-api";
 import styles from "./ImageCard.module.css";
 
-export default function ImageCard({ image }) {
+export interface ImageCardProps {
+  image: Image;
+}
+
+export default function ImageCard({ image }: ImageCardProps) {
   return (
     <div>
       <img
